@@ -84,8 +84,9 @@ class CategoryController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params:{id}, request, response, view }) {
+  async show ({request, response, view }) {
     try {
+      const {id} = request.only(['id'])
       const category = await Category.findBy('id', id)
       const res = {
         name: category.name,
@@ -117,8 +118,9 @@ class CategoryController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params:{id}, request, response }) {
+  async update ({request, response }) {
     try {
+      const {id} = request.only(['id'])
       const data = request.only(['name','climate']);
       const category = await Category.findBy('id', id)
       category.name = data.name;
@@ -138,8 +140,9 @@ class CategoryController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy ({ params:{id}, request, response }) {
+  async destroy ({request, response }) {
     try {
+      const {id} = request.only(['id'])
       const category = await Category.findBy('id', id)
       await category.delete();
       return response.status(204).send({message: 'Category has been deleted'});

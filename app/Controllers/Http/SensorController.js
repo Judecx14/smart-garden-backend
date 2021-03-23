@@ -90,8 +90,9 @@ class SensorController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show({params: {id}, request, response, view}) {
+  async show({request, response, view}) {
     try {
+      const {id} = request.only(['id'])
       const sensor = await Sensor.findBy('id', id)
       const res = {
         name: sensor.name,
@@ -109,7 +110,7 @@ class SensorController {
       const {id} = request.only(['id'])
       const data = await Sensor.findBy('id', id);
       const measure = await Measurement.find({IDSensor: id}).exec()
-        const res = {data, measure}
+      const res = {data, measure}
       return response.status(200).json(res);
     } catch (e) {
       return response.status(400).send({'Error': e.toString()});
@@ -172,8 +173,9 @@ class SensorController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update({params:{id}, request, response}) {
+  async update({request, response}) {
     try {
+      const {id} = request.only(['id'])
       const data = request.only(['name', 'pins', 'tyoe']);
       const sensor = await Sensor.findBy('id', id)
       sensor.name = data.name;
@@ -194,8 +196,9 @@ class SensorController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({params:{id}, request, response}) {
+  async destroy({request, response}) {
     try {
+      const {id} = request.only(['id'])
       const sensor = await Sensor.findBy('id', id)
       await sensor.delete();
       return response.status(204).send({message: 'Sensor has been deleted'});

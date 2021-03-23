@@ -92,8 +92,9 @@ class FlowerpotController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show({params: {id}, request, response, view}) {
+  async show({request, response, view}) {
     try {
+      const {id} = request.only(['id'])
       const flowerpot = await Flowerpot.findBy('id', id)
       const res = {
         name: flowerpot.name,
@@ -106,8 +107,9 @@ class FlowerpotController {
     }
   }
 
-  async showFlowerpotSensor({params: {id}, request, response, view}) {
+  async showFlowerpotSensor({request, response, view}) {
     try {
+      const {id} = request.only(['id'])
       const flowerpot = await Database.select('*').from('flowerpots').where({id: id})
       const fl = await Database.select('*').from('flowerpot_sensors').where({IDFlowerpot: id})
       const all = []
@@ -180,8 +182,9 @@ class FlowerpotController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update({params: {id}, request, response}) {
+  async update({request, response}) {
     try {
+      const {id} = request.only(['id'])
       const data = request.only(['name', 'spice', 'category']);
       const flowerpot = await Flowerpot.findBy('id', id)
       flowerpot.name = data.name;
@@ -202,8 +205,9 @@ class FlowerpotController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({params: {id}, request, response}) {
+  async destroy({request, response}) {
     try {
+      const {id} = request.only(['id'])
       const flowerpot = await Flowerpot.findBy('id', id)
       await flowerpot.delete();
       return response.status(204).send({message: 'Flowerpot has been deleted'});

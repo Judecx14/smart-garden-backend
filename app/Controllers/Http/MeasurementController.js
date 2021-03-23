@@ -105,9 +105,8 @@ class MeasurementController {
    */
   async destroy({request, response}) {
     try {
-      const idn = request.only(['id'])
-      const id = idn.id.toString()
-      await Measurement.deleteOne({_id: id})
+      const {id} = request.only(['id'])
+      await Measurement.deleteOne({_id: id.toString()})
       return response.status(204).send({message: 'measure has been destroyed'});
     } catch (e) {
       return response.status(400).send({'Error': e.toString()});

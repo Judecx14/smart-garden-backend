@@ -86,8 +86,9 @@ class FlowerpotSensorController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show({params: {id}, request, response, view}) {
+  async show({request, response, view}) {
     try {
+      const {id} = request.only(['id'])
       const flowerpot = await Database.select('*').from('flowerpot_sensors').where({IDFlowerpot: id})
       const data = []
       for (const i of flowerpot.toJSON()) {
@@ -133,8 +134,9 @@ class FlowerpotSensorController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async destroy({params:{id}, request, response}) {
+  async destroy({request, response}) {
     try {
+      const {id} = request.only(['id'])
       const flowerpotsensor = await FlowerpotSensor.findBy('id', id)
       await flowerpotsensor.delete();
       return response.status(204).send({message: 'flowerpots has been deleted'});
