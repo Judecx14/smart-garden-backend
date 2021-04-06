@@ -7,7 +7,7 @@ const {Schema} = mongoose
 const MeasurementSchema = new Schema(
   {
     IDSensor: Number,
-    measurements: String,
+    measurements: JSON,
   },
   {
     timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}

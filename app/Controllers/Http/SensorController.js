@@ -117,6 +117,30 @@ class SensorController {
     }
   }
 
+  async showSensorTemperature({request, response, view}) {
+    try {
+      const {id} = request.only(['id'])
+      const data = await Sensor.findBy('id', id);
+      const measure = await Measurement.find({IDSensor: id}).exec()
+      const res = {data, measure}
+      return response.status(200).json(res);
+    } catch (e) {
+      return response.status(400).send({'Error': e.toString()});
+    }
+  }
+
+  async showSensorHumidity({request, response, view}) {
+    try {
+      const {id} = request.only(['id'])
+      const data = await Sensor.findBy('id', id);
+      const measure = await Measurement.find({IDSensor: id}).select(['measurements','created_at']).exec()
+      const res = {data, measure}
+      return response.status(200).json(res);
+    } catch (e) {
+      return response.status(400).send({'Error': e.toString()});
+    }
+  }
+
   /**
    * Display sensors by name.
    * GET sensors

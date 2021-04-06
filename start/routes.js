@@ -115,6 +115,8 @@ Route.group(() => {
   // Sensor
   Route.get('Sensor/showMeasure', 'SensorController.showSensorMeasurements')
   // Sensor
+  Route.get('Sensor/showHumidity', 'SensorController.showSensorHumidity')
+  // Sensor
   Route.get('Sensor/showByName', 'SensorController.showByName')
   // Sensor
   Route.get('Sensor/showByType', 'SensorController.showByType')

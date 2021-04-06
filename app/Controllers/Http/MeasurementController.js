@@ -35,7 +35,7 @@ class MeasurementController {
       ])
       await Measurement.create({
         IDSensor: IDSensor,
-        measurements: measurements
+        measurements: JSON.parse(measurements)
       })
       return response.status(201).send({message: 'measure has been created'})
     } catch (e) {

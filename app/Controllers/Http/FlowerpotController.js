@@ -115,7 +115,8 @@ class FlowerpotController {
       const sensors = []
       for (const i of fl) {
         const sensor = await Database.select('*').from('sensors').where({id: i.IDSensor})
-        const measure = await Measurement.find({IDSensor: id}).exec()
+        console.log(i.IDSensor)
+        const measure = await Measurement.find({IDSensor: i.IDSensor}).exec()
         const res = {sensor, measure}
         sensors.push(res)
       }
