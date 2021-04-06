@@ -112,14 +112,14 @@ class FlowerpotController {
       const {id} = request.only(['id'])
       const flowerpot = await Database.select('*').from('flowerpots').where({id: id})
       const fl = await Database.select('*').from('flowerpot_sensors').where({IDFlowerpot: id})
-      const all = []
-      for (const i in fl.toJSON()) {
+      const sensors = []
+      for (const i of fl) {
         const sensor = await Database.select('*').from('sensors').where({id: i.IDSensor})
         const measure = await Measurement.find({IDSensor: id}).exec()
         const res = {sensor, measure}
-        all.push(res)
+        sensors.push(res)
       }
-      const data = {flowerpot, all}
+      const data = {flowerpot, sensors}
       return response.status(200).json(data);
     } catch (e) {
       return response.status(400).send({'Error': e.toString()});

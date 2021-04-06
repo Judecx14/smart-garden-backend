@@ -31,8 +31,6 @@ class UserController {
     const rules =
       {
         username: 'required|string',
-        name: 'required|string',
-        lastName: 'required|string',
         email: 'required|email|unique:users,email',
         password: 'required'
       }
@@ -41,18 +39,14 @@ class UserController {
       return validation.messages()
     } else {
       try {
-        const {username, name, lastName, email, password} = request.only([
+        const {username, email, password} = request.only([
           'username',
-          'name',
-          'lastName',
           'email',
           'password'
         ])
 
         await User.create({
           username,
-          name,
-          lastName,
           email,
           password
         })
@@ -77,8 +71,6 @@ class UserController {
       const user = await User.findBy('id', id)
       const res = {
         username: user.username,
-        first_name: user.first_name,
-        last_name: user.last_name,
         email: user.email,
       }
       return response.status(200).json(res)
@@ -100,8 +92,6 @@ class UserController {
       const data = request.only(['username', 'first_name', 'last_name', 'email']);
       const user = request.u
       user.username = data.username;
-      user.first_name = data.first_name;
-      user.last_name = data.last_name;
       user.email = data.email;
       await user.save();
       return response.status(200).json(user);

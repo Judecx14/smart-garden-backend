@@ -101,19 +101,22 @@ Route.group(() => {
   // FlowerpotSensor
   Route.post('FlowerpotSensor/', 'FlowerpotSensorController.index')
 
+  // Measurements
+  Route.get('Measure/showDate', 'MeasurementController.showByDate')
+
 
   // Flowerpot
   Route.get('Flowerpot/showFLSN', 'FlowerpotController.showFlowerpotSensor')
   // Flowerpot
   Route.get('Flowerpot/showByName', 'FlowerpotController.showByName')
   // Flowerpot
-  Route.get('Flowerpot/showByType', 'FlowerpotController.showByType')
+  Route.get('Flowerpot/showByCategory', 'FlowerpotController.showByType')
 
   // Sensor
   Route.get('Sensor/showMeasure', 'SensorController.showSensorMeasurements')
   // Sensor
-  Route.get('Sensor/showByName', 'FlowerpotController.showByName')
+  Route.get('Sensor/showByName', 'SensorController.showByName')
   // Sensor
-  Route.get('Sensor/showByType', 'FlowerpotController.showByType')
+  Route.get('Sensor/showByType', 'SensorController.showByType')
 
 }).prefix('api/')

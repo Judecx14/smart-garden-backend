@@ -73,6 +73,24 @@ class MeasurementController {
   }
 
   /**
+   * Display a single measurement.
+   * GET measurements/:id
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   */
+  async showByDate({request, response}) {
+    try {
+      const {id, date} = request.only(['id', 'date'])
+      const res = await Measurement.find({IDSensor: id, created_at: date}).exec()
+      return response.status(200).json(res)
+    } catch (e) {
+      return response.status(404).send({'Error': e.toString()});
+    }
+  }
+
+  /**
    * Render a form to update an existing measurement.
    * GET measurements/:id/edit
    *

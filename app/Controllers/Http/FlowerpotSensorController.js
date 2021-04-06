@@ -123,7 +123,18 @@ class FlowerpotSensorController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update({params, request, response}) {
+  async update({request, response}) {
+    try {
+      const {id} = request.only(['id'])
+      const data = request.only(['IDSensor', 'IDFlowerpot']);
+      const flowerpot = await FlowerpotSensor.findBy('id', id)
+      flowerpot.IDSensor = data.IDSensor;
+      flowerpot.IDFlowerpot = data.IDFlowerpot;
+      await flowerpot.save();
+      return response.status(200).json(flowerpot);
+    } catch (e) {
+      return response.status(400).send({'Error': e.toString()});
+    }
   }
 
   /**

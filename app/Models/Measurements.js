@@ -6,10 +6,14 @@ const {Schema} = mongoose
 
 const MeasurementSchema = new Schema(
   {
-    IDSensor: String,
+    IDSensor: Number,
     measurements: String,
+  },
+  {
+    timestamps: {createdAt: 'created_at', updatedAt: 'updated_at'}
   }
 )
+
 /**
  * @class Measurements
  */
@@ -17,13 +21,10 @@ class Measurements extends BaseModel {
   /**
    * Measurements's schema
    */
-  static get schema () {
-    return {
-
-    }
+  static get schema() {
+    return {}
   }
 }
-
 
 MeasurementSchema.loadClass(Measurements)
 

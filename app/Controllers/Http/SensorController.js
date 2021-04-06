@@ -145,7 +145,7 @@ class SensorController {
    */
   async showByType({request, response}) {
     try {
-      const type = request.input('type')
+      const {type} = request.only(['type'])
       const data = await Database.select('*').from('sensors').where({type: type})
       return response.status(200).json(data)
     } catch (e) {
