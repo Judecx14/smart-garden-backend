@@ -1,8 +1,6 @@
 'use strict'
 
 const Flowerpot = use('App/Models/Flowerpot')
-const FlowerpotSensor = use('App/Models/FlowerpotSensor')
-const Sensor = use('App/Models/Sensor')
 const Measurement = use('App/Models/Measurements')
 const Database = use('Database')
 const {validate} = use('Validator')
@@ -48,6 +46,7 @@ class FlowerpotController {
       {
         name: 'required|string',
         spice: 'required|string',
+        garden: 'required|integer',
         category: 'required|string'
       }
     const validation = await validate(request.all(), rules)
@@ -55,14 +54,16 @@ class FlowerpotController {
       return validation.messages()
     } else {
       try {
-        const {name, spice, category} = request.only([
+        const {name, spice, garden, category} = request.only([
           'name',
           'spice',
+          'garden',
           'category'
         ])
         const flowerpot = await Flowerpot.create({
           name,
           spice,
+          garden,
           category
         })
         return response.status(201).json(flowerpot)
@@ -99,6 +100,7 @@ class FlowerpotController {
       const res = {
         name: flowerpot.name,
         spice: flowerpot.spice,
+        garden: flowerpot.garden,
         category: flowerpot.category,
       }
       return response.status(200).json(res)
@@ -164,6 +166,24 @@ class FlowerpotController {
   }
 
   /**
+   * Display flowerpot by category.
+   * GET flowerpots
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   */
+  async showByGarden({request, response}) {
+    try {
+      const garden = request.input('garden')
+      const data = await Database.select('*').from('flowerpots').where({garden: garden})
+      return response.status(200).json(data)
+    } catch (e) {
+      return response.status(404).send({message: e.toString})
+    }
+  }
+
+  /**
    * Render a form to update an existing flowerpot.
    * GET flowerpots/:id/edit
    *
@@ -186,10 +206,11 @@ class FlowerpotController {
   async update({request, response}) {
     try {
       const {id} = request.only(['id'])
-      const data = request.only(['name', 'spice', 'category']);
+      const data = request.only(['name', 'spice', 'garden', 'category']);
       const flowerpot = await Flowerpot.findBy('id', id)
       flowerpot.name = data.name;
       flowerpot.spice = data.spice;
+      flowerpot.garden = data.garden;
       flowerpot.category = data.category;
       await flowerpot.save();
       return response.status(200).json(flowerpot);

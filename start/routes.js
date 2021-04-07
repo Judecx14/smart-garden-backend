@@ -45,6 +45,8 @@ Route.group(() => {
   Route.post('newMeasure', 'MeasurementController.create')
   // FlowerpotSensor
   Route.post('newFlowerpotSensor', 'FlowerpotSensorController.create')
+  // Garden
+  Route.post('newGarden', 'GardenController.create')
 
   // Sensors
   Route.get('Sensor/index', 'SensorController.index')
@@ -56,6 +58,8 @@ Route.group(() => {
   Route.get('Measure/index', 'MeasurementController.index')
   // FlowerpotSensor
   Route.get('FlowerpotSensor/index', 'FlowerpotSensorController.index')
+  // Garden
+  Route.get('Garden/index', 'GardenController.index')
 
   // Sensors
   Route.get('Sensor/show', 'SensorController.show')
@@ -67,6 +71,8 @@ Route.group(() => {
   Route.get('Measure/show', 'MeasurementController.show')
   // FlowerpotSensor
   Route.get('FlowerpotSensor/show', 'FlowerpotSensorController.show')
+  // FlowerpotSensor
+  Route.get('Garden/show', 'GardenController.show')
 
   // Sensors
   Route.put('Sensor/update', 'SensorController.update')
@@ -78,6 +84,8 @@ Route.group(() => {
   Route.put('Measure/update', 'MeasurementController.update')
   // FlowerpotSensor
   Route.put('FlowerpotSensor/update', 'FlowerpotSensorController.update')
+  // Garden
+  Route.put('Garden/update', 'GardenController.update')
 
   // Sensors
   Route.delete('Sensor/delete', 'SensorController.destroy')
@@ -89,6 +97,8 @@ Route.group(() => {
   Route.delete('Measure/delete', 'MeasurementController.destroy')
   // FlowerpotSensor
   Route.delete('FlowerpotSensor/delete', 'FlowerpotSensorController.destroy')
+  // Garden
+  Route.delete('Garden/delete', 'GardenController.destroy')
 
   // Sensors
   Route.post('Sensor/', 'SensorController.index')
@@ -111,6 +121,8 @@ Route.group(() => {
   Route.get('Flowerpot/showByName', 'FlowerpotController.showByName')
   // Flowerpot
   Route.get('Flowerpot/showByCategory', 'FlowerpotController.showByType')
+  // Flowerpot
+  Route.get('Flowerpot/showByGarden', 'FlowerpotController.showByGarden')
 
   // Sensor
   Route.get('Sensor/showMeasure', 'SensorController.showSensorMeasurements')
