@@ -1,6 +1,7 @@
 'use strict'
 
 const Flowerpot = use('App/Models/Flowerpot')
+const Sensor = use('App/Models/Sensor')
 const Measurement = use('App/Models/Measurements')
 const Database = use('Database')
 const {validate} = use('Validator')
@@ -111,14 +112,13 @@ class FlowerpotController {
 
   async showFlowerpotSensor({request, response, view}) {
     try {
-      const {id} = request.only(['id'])
+      const {id, date, date2} = request.only(['id', 'date', 'date2'])
       const flowerpot = await Database.select('*').from('flowerpots').where({id: id})
       const fl = await Database.select('*').from('flowerpot_sensors').where({IDFlowerpot: id})
       const sensors = []
       for (const i of fl) {
-        const sensor = await Database.select('*').from('sensors').where({id: i.IDSensor})
-        console.log(i.IDSensor)
-        const measure = await Measurement.find({IDSensor: i.IDSensor}).exec()
+        const sensor = await Sensor.findBy('id', i.IDSensor)
+        const measure = await Measurement.find({$and: [{IDSensor: i.IDSensor}, {created_at: {$gte: date, $lt:date2}}]}).exec()
         const res = {sensor, measure}
         sensors.push(res)
       }

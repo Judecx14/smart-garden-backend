@@ -29,9 +29,9 @@ Route.post('logout', 'UserController.logout').middleware('auth')
 Route.get('getUser/:id', 'UserController.show').middleware(['auth'])
 Route.get('getAllUsers', 'UserController.index').middleware('auth')
 // Update
-Route.put('update/:id', 'UserController.update').middleware(['auth'])
+Route.put('update', 'UserController.update').middleware(['auth'])
 // Delete
-Route.delete('delete/:id', 'UserController.destroy').middleware(['auth'])
+Route.delete('delete', 'UserController.destroy').middleware(['auth'])
 
 
 Route.group(() => {
@@ -132,5 +132,8 @@ Route.group(() => {
   Route.get('Sensor/showByName', 'SensorController.showByName')
   // Sensor
   Route.get('Sensor/showByType', 'SensorController.showByType')
+
+  // Garden
+  Route.get('Garden/showByUser', 'GardenController.showByUser')
 
 }).prefix('api/')

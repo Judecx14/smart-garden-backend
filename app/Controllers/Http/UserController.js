@@ -30,7 +30,8 @@ class UserController {
   async create({request, response}) {
     const rules =
       {
-        username: 'required|string',
+        name: 'required|string',
+        lastName: 'required|string',
         email: 'required|email|unique:users,email',
         password: 'required'
       }
@@ -39,14 +40,16 @@ class UserController {
       return validation.messages()
     } else {
       try {
-        const {username, email, password} = request.only([
-          'username',
+        const {name, lastName, email, password} = request.only([
+          'name',
+          'lastName',
           'email',
           'password'
         ])
 
         await User.create({
-          username,
+          name,
+          lastName,
           email,
           password
         })
@@ -70,7 +73,8 @@ class UserController {
     try {
       const user = await User.findBy('id', id)
       const res = {
-        username: user.username,
+        name: user.name,
+        lastName: user.lastName,
         email: user.email,
       }
       return response.status(200).json(res)
@@ -89,9 +93,11 @@ class UserController {
    */
   async update({request, response}) {
     try {
-      const data = request.only(['username', 'first_name', 'last_name', 'email']);
-      const user = request.u
-      user.username = data.username;
+      const {id} = request.only(['id'])
+      const user = await User.findBy('id', id)
+      const data = request.only(['name', 'lastName', 'email']);
+      user.name = data.name;
+      user.lastName = data.lastName;
       user.email = data.email;
       await user.save();
       return response.status(200).json(user);
@@ -110,7 +116,8 @@ class UserController {
    */
   async destroy({request, response}) {
     try {
-      const user = request.u
+      const {id} = request.only(['id'])
+      const user = await User.findBy('id', id)
       await user.delete();
       return response.status(204).send({message: 'User has been destroyed'});
     } catch (e) {

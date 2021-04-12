@@ -43,20 +43,23 @@ class GardenController {
     const rules =
       {
         name: 'required|string',
-        location: 'required|string'
+        location: 'required|string',
+        user_id: 'required|number'
       }
     const validation = await validate(request.all(), rules)
     if (validation.fails()) {
       return validation.messages()
     } else {
       try {
-        const {name, location} = request.only([
+        const {name, location, user_id} = request.only([
           'name',
-          'location'
+          'location',
+          'user_id'
         ])
         const garden = await Garden.create({
           name,
-          location
+          location,
+          user_id
         })
         return response.status(201).json(garden)
       } catch (e) {
@@ -94,6 +97,26 @@ class GardenController {
         location: garden.location
       }
       return response.status(200).json(res)
+    } catch (e) {
+      return response.status(404).send({'Error': e.toString()});
+    }
+  }
+
+  /**
+   * Display a single garden.
+   * GET gardens/:id
+   *
+   * @param {object} ctx
+   * @param {Request} ctx.request
+   * @param {Response} ctx.response
+   * @param {View} ctx.view
+   */
+  async showByUser({request, response, view}) {
+    try {
+      const {id} = request.only(['id'])
+      const garden = await Database.select('*').from('gardens').where({user_id: id})
+
+      return response.status(200).json(garden)
     } catch (e) {
       return response.status(404).send({'Error': e.toString()});
     }
