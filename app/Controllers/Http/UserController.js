@@ -161,7 +161,7 @@ class UserController {
         const user = await auth.getUser()
         return {
           id: user.id,
-          username: user.username,
+          username: user.name,
           state: true
         }
       }
