@@ -132,6 +132,8 @@ Route.group(() => {
   Route.get('Sensor/showByName', 'SensorController.showByName')
   // Sensor
   Route.get('Sensor/showByType', 'SensorController.showByType')
+  // Sensor
+  Route.get('Sensor/showByDate', 'SensorController.sensorMeasureByDate')
 
   // Garden
   Route.get('Garden/showByUser', 'GardenController.showByUser')

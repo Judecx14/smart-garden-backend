@@ -117,11 +117,23 @@ class SensorController {
     }
   }
 
+  async sensorMeasureByDate({request, response, view}) {
+    try {
+      const {id, date1, date2} = request.only(['id', 'date1', 'date2'])
+      const data = await Sensor.findBy('id', id);
+      const measure = await Measurement.find({$and: [{IDSensor: id}, {created_at: {$gte: date1, $lt:date2}}]}).exec()
+      const res = {data, measure}
+      return response.status(200).json(res);
+    } catch (e) {
+      return response.status(400).send({'Error': e.toString()});
+    }
+  }
+
   async showSensorHumidity({request, response, view}) {
     try {
       const {id} = request.only(['id'])
       const data = await Sensor.findBy('id', id);
-      const measure = await Measurement.find({IDSensor: id}).select(['measurements','created_at']).exec()
+      const measure = await Measurement.find({IDSensor: id}).select(['measurements', 'created_at']).exec()
       const res = {data, measure}
       return response.status(200).json(res);
     } catch (e) {
