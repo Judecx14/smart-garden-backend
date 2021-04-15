@@ -115,7 +115,6 @@ class GardenController {
     try {
       const {id} = request.only(['id'])
       const garden = await Database.select('*').from('gardens').where({user_id: id})
-
       return response.status(200).json(garden)
     } catch (e) {
       return response.status(404).send({'Error': e.toString()});

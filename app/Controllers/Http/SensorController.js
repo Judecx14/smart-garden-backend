@@ -121,7 +121,7 @@ class SensorController {
     try {
       const {id, date1, date2} = request.only(['id', 'date1', 'date2'])
       const data = await Sensor.findBy('id', id);
-      const measure = await Measurement.find({$and: [{IDSensor: id}, {created_at: {$gte: date1, $lt:date2}}]}).exec()
+      const measure = await Measurement.find({$and: [{IDSensor: id}, {created_at: {$gte: date1, $lte:date2}}]}).exec()
       const res = {data, measure}
       return response.status(200).json(res);
     } catch (e) {

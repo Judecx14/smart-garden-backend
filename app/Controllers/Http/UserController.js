@@ -159,11 +159,12 @@ class UserController {
     try {
       if (auth.check()) {
         const user = await auth.getUser()
-        return {
+        const res = {
           id: user.id,
           username: user.name,
           state: true
         }
+        return response.json(res);
       }
     } catch (error) {
       return response.json({state: false})

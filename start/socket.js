@@ -15,4 +15,4 @@
 
 const Ws = use('Ws')
 
-Ws.channel('measures', 'MeasuresController');
+Ws.channel('measures', 'MeasureController');
