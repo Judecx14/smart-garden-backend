@@ -5,6 +5,9 @@ const Env = use('Env')
 
 /** @type {import('@adonisjs/ignitor/src/Helpers')} */
 const Helpers = use('Helpers')
+//
+// const Url = require('url-parse')
+// const DATABASE_URL = new URL(Env.get(DATABASE_URL))
 
 module.exports = {
   /*
@@ -69,7 +72,7 @@ module.exports = {
   |
   */
   mongodb: {
-    // connectionString: Env.get('MONGO_CONNECTION_STRING', null),
+    connectionString: Env.get('MONGO_CONNECTION_STRING', null),
     connection: {
       host: Env.get('MONGO_HOST', 'localhost'),
       port: Env.get('MONGO_PORT', 27017),

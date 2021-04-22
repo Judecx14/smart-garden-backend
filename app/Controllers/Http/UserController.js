@@ -183,12 +183,12 @@ class UserController {
     }
   }
 
-  async loginCheck({auth}) {
+  async loginCheck({response, auth}) {
     try {
       const user = await auth.getUser()
-      return !!user;
+      return response.send({message: true})
     } catch (e) {
-      return false
+      return response.status(401).send({message: false})
     }
   }
 }

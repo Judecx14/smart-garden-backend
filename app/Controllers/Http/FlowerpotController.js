@@ -48,7 +48,7 @@ class FlowerpotController {
         name: 'required|string',
         spice: 'required|string',
         garden: 'required|integer',
-        category: 'required|string'
+        category: 'required|integer'
       }
     const validation = await validate(request.all(), rules)
     if (validation.fails()) {
@@ -207,6 +207,7 @@ class FlowerpotController {
     try {
       const {id} = request.only(['id'])
       const data = request.only(['name', 'spice', 'garden', 'category']);
+      console.log(id)
       const flowerpot = await Flowerpot.findBy('id', id)
       flowerpot.name = data.name;
       flowerpot.spice = data.spice;
