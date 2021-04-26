@@ -140,4 +140,4 @@ Route.group(() => {
   // Garden
   Route.get('Garden/showByUser', 'GardenController.showByUser')
 
-}).prefix('api/')
+}).prefix('api/').middleware('auth')
