@@ -10,7 +10,7 @@ class MeasureController {
 
   async onMessage(data) {
     console.log(data)
-    try {
+    /*try {
       if (data.measurements.humidity < 20) {
         const flowerpot = await Database.select('*').from('flowerpot_sensors').where({IDSensor: data.IDSensor})
         this.socket.broadcast('startWaterPump', flowerpot.IDFlowerpot)
@@ -21,7 +21,7 @@ class MeasureController {
       })
     } catch (e) {
       console.log(e)
-    }
+    }*/
   }
 }
 
