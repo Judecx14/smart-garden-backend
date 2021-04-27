@@ -45,7 +45,6 @@ class SensorController {
     const rules =
       {
         name: 'required|string',
-        pins: 'required',
         type: 'required|string'
       }
     const validation = await validate(request.all(), rules)
@@ -53,14 +52,12 @@ class SensorController {
       return validation.messages()
     } else {
       try {
-        const {name, pins, type} = request.only([
+        const {name, type} = request.only([
           'name',
-          'pins',
           'type'
         ])
         const sensor = await Sensor.create({
           name,
-          pins,
           type
         })
         return response.status(201).json(sensor)
@@ -96,7 +93,6 @@ class SensorController {
       const sensor = await Sensor.findBy('id', id)
       const res = {
         name: sensor.name,
-        pins: sensor.pins,
         type: sensor.type,
       }
       return response.status(200).json(res)
@@ -200,10 +196,9 @@ class SensorController {
   async update({request, response}) {
     try {
       const {id} = request.only(['id'])
-      const data = request.only(['name', 'pins', 'tyoe']);
+      const data = request.only(['name', 'tyoe']);
       const sensor = await Sensor.findBy('id', id)
       sensor.name = data.name;
-      sensor.pins = data.pins;
       sensor.type = data.type;
       await sensor.save();
       return response.status(200).json(sensor);

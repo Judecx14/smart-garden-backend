@@ -8,7 +8,6 @@ class SensorSchema extends Schema {
     this.create('sensors', (table) => {
       table.increments()
       table.string('name', 280).notNullable()
-      table.string('pins', 280).notNullable()
       table.string('type', 280).notNullable()
       table.timestamps()
     })
