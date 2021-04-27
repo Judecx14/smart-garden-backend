@@ -9,6 +9,7 @@ class MeasureController {
   }
 
   async onMessage(data) {
+    this.socket.broadcast("message", data)
     console.log(data)
     /*try {
       if (data.measurements.humidity < 20) {
