@@ -72,11 +72,11 @@ module.exports = {
   |
   */
   mongodb: {
-    connectionString: Env.get('MONGO_CONNECTION_STRING', 'mongodb+srv://Judecx14:14777@cluster0.8aiwz.mongodb.net/adonis?retryWrites=true&w=majority'),
+    connectionString: Env.get('MONGO_CONNECTION_STRING', 'mongodb+srv://14777:14777@cluster0.pltuv.mongodb.net/adonis?retryWrites=true&w=majority'),
     connection: {
-      host: Env.get('MONGO_HOST', 'cluster0.8aiwz.mongodb.net'),
+      host: Env.get('MONGO_HOST', 'cluster0.pltuv.mongodb.net'),
       port: Env.get('MONGO_PORT', 27017),
-      user: Env.get('MONGO_USER', 'Judecx14'),
+      user: Env.get('MONGO_USER', '14777'),
       pass: Env.get('MONGO_PASSWORD', '14777'),
       database: Env.get('MONGO_DATABASE', 'adonis'),
       options: {
